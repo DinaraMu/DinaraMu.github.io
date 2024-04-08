@@ -1,0 +1,60 @@
+﻿nav{
+    background: black;
+    color: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30%;
+    padding-right: 30px;
+}
+
+a.menu {
+    color: white;
+    text-decoration: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family: "Satisfy", cursive;
+    font-weight: 500;
+    font-style: normal;
+}
+
+a.menu:hover{
+    color: hotpink;
+    background: grey;
+    font-family: "Satisfy", cursive;
+    font-weight: 900;
+    font-style: normal;
+}
+
+body {
+    margin: 0px;
+    font-family: "Satisfy", cursive;
+    font-weight: 500;
+    font-style: normal;
+}
+
+div#profile {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 350px;
+    /**border: 2px blue solid;**/
+    display: inline-block;
+    margin-left: 300px;
+}
+
+div#bio {
+    padding: 100px;
+    width: 500px;
+    /*border: 2px red solid;*/
+    display: inline-block;
+}
+
+div#portfolio {
+    width: 1200px;
+    margin-left: 300px;
+    /*border: 2px red solid;*/
+    display: inline-block;
+}
