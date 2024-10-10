@@ -1000,6 +1000,31 @@ section .container {
   background-color: #1847d2;
 }
 
+/* Responsive Image Styles */
+.portfolio-details img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portfolio-details-slider {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .portfolio-details img {
+        object-fit: contain;
+    }
+}
+
 /*--------------------------------------------------------------
 # Contact
 --------------------------------------------------------------*/
