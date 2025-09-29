@@ -1,0 +1,331 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stack Rank Survey</title>
+    <style>
+        :root {
+            --bg: #0b0b0c;
+            --card: #111216;
+            --text: #e7e7ea;
+            --muted: #9aa1a9;
+            --accent: #3b82f6;
+            --border: #24262c;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+        }
+
+        .card-header {
+            padding: 20px 20px 0 20px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 6px 0;
+        }
+
+        .card-sub {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 14px 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+            color: var(--muted);
+        }
+
+        input, button {
+            font: inherit;
+        }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 10px 12px;
+                border-radius: 10px;
+                border: 1px solid var(--border);
+                background: #0f1014;
+                color: var(--text);
+            }
+
+        .items {
+            margin-top: 10px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #0f1116;
+            margin-bottom: 8px;
+            user-select: none;
+            cursor: grab;
+            touch-action: none;
+        }
+
+            .item:active {
+                cursor: grabbing;
+            }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .handle {
+            font-size: 18px;
+            opacity: .9;
+        }
+
+        .name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .rank {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .ghost {
+            opacity: .5;
+        }
+
+        .drop-target {
+            outline: 2px dashed var(--accent);
+            outline-offset: 2px;
+        }
+
+        .dragging {
+            opacity: .85;
+            background: #0e141e;
+            box-shadow: 0 8px 16px rgba(0,0,0,.35) inset;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #151821;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+            .btn:disabled {
+                opacity: .6;
+                cursor: not-allowed;
+            }
+
+        .ok {
+            color: #86efac;
+        }
+
+        .err {
+            color: #fca5a5;
+        }
+    </style>
+</head>
+<body data-webhook="https://script.google.com/macros/s/AKfycbyf3TMGBXh7i_5JcIu1Qo3KPweKbxi4J2zUlm-vGNuJK16P3qlD5wcyQ5Qg9SFUS1ql/exec">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title" id="title">Stack Rank Survey</h1>
+                <p class="card-sub">Drag each item to reorder from best (top) to worst (bottom). Then enter your email and submit.</p>
+            </div>
+            <div class="card-body">
+                <div>
+                    <label for="name">Your email</label>
+                    <input id="name" type="text" placeholder="e.g., name@example.com" />
+                </div>
+
+                <div class="items" id="items"></div>
+
+                <div class="row" style="margin-top:10px;">
+                    <button class="btn" id="submit">Submit Ranking</button>
+                </div>
+
+                <p id="status" style="margin-top:8px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const DEFAULT_ITEMS = [
+      "Team 1 - Akkadian Empire","Team 2 - Egyptian New Kingdom","Team 3 - Achaemenid (Persian) Empire","Team 4 - Macedonian Empire","Team 5 - Roman Empire",
+      "Team 6 - Gupta Empire","Team 7 - Islamic Caliphate","Team 8 - Mongol Empire","Team 9 - Spanish Empire","Team 10 - British Empire"
+    ];
+    const params = new URLSearchParams(location.search);
+    const surveyTitle = params.get('title') || 'Stack Rank Survey';
+    const itemsParam = params.get('items');
+    const items = itemsParam ? itemsParam.split('|').map(s=>s.trim()).filter(Boolean) : DEFAULT_ITEMS.slice();
+    const surveyId = params.get('sid') || 'survey-001';
+    document.getElementById('title').textContent = surveyTitle;
+
+    let order = items.slice();
+    const listEl = document.getElementById('items');
+
+    function render() {
+      listEl.innerHTML = '';
+      order.forEach((name, idx) => {
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.draggable = true;
+        el.dataset.index = idx;
+        el.innerHTML = `
+          <div class="left"><span class="handle">≡</span><div class="name">${escapeHtml(name)}</div></div>
+          <div class="rank">Rank #${idx + 1}</div>
+        `;
+        el.addEventListener('dragstart', (e) => {
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(idx));
+          el.classList.add('ghost');
+        });
+        el.addEventListener('dragend', () => el.classList.remove('ghost'));
+        el.addEventListener('dragover', (e) => { e.preventDefault(); el.classList.add('drop-target'); });
+        el.addEventListener('dragleave', () => el.classList.remove('drop-target'));
+        el.addEventListener('drop', (e) => {
+          e.preventDefault();
+          el.classList.remove('drop-target');
+          const from = Number(e.dataTransfer.getData('text/plain'));
+          const to = idx;
+          if (!Number.isNaN(from) && from !== to) { order = arrayMove(order, from, to); render(); }
+        });
+        addTouchHandlers(el, idx);
+        listEl.appendChild(el);
+      });
+    }
+
+    function arrayMove(list, from, to) { const a=list.slice(); const [it]=a.splice(from,1); a.splice(to,0,it); return a; }
+    function escapeHtml(s) { return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+    let tState = null;
+    function addTouchHandlers(el, idx) {
+      el.addEventListener('touchstart', (e) => { if (e.touches.length !== 1) return; tState = { index: idx }; el.classList.add('dragging'); }, { passive: true });
+      el.addEventListener('touchmove', (e) => {
+        if (!tState) return;
+        e.preventDefault();
+        const y = e.touches[0].clientY;
+        const centers = getItemCenters();
+        const targetIndex = nearestIndex(centers, y);
+        if (targetIndex !== tState.index) {
+          order = arrayMove(order, tState.index, targetIndex);
+          tState.index = targetIndex;
+          render();
+          const moved = listEl.children[targetIndex];
+          if (moved) moved.classList.add('dragging');
+        }
+      }, { passive: false });
+      const end = () => { tState = null; [...listEl.children].forEach(c => c.classList.remove('dragging')); };
+      el.addEventListener('touchend', end, { passive: true });
+      el.addEventListener('touchcancel', end, { passive: true });
+    }
+    function getItemCenters() { return [...listEl.children].map(ch => { const r = ch.getBoundingClientRect(); return (r.top + r.bottom) / 2; }); }
+    function nearestIndex(centers, y) { let best=0, dist=Infinity; centers.forEach((c,i)=>{ const d=Math.abs(c-y); if(d<dist){dist=d;best=i;} }); return best; }
+
+    function buildPayload() {
+      const respondentLabel = document.getElementById('name').value.trim();
+      return {
+        surveyId,
+        respondentId: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        respondentLabel,
+        submittedAt: new Date().toISOString(),
+        ranking: order.map((item, idx) => ({ item, rank: idx + 1 })),
+        rawOrder: order.slice(),
+        userAgent: navigator.userAgent
+      };
+    }
+
+    document.getElementById('submit').addEventListener('click', async () => {
+      const payload = buildPayload();
+      if (!payload.respondentLabel) return setStatus('Please enter your email before submitting.', true);
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payload.respondentLabel)) return setStatus('Please enter a valid email address.', true);
+
+      const webhook = document.body.dataset.webhook || '';
+      if (!webhook) return setStatus('Submission endpoint missing.', true);
+
+      // 🔄 show waiting cursor
+      document.body.style.cursor = 'wait';
+      document.getElementById('submit').disabled = true;
+
+      try {
+        const res = await fetch(webhook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        const text = await res.text().catch(()=> '');
+        let json = {};
+        try { json = JSON.parse(text); } catch(_) {}
+
+        if (!res.ok || !json.ok) {
+          const reason = (json && json.reason) || 'server_error';
+          if (reason === 'not_permitted') return setStatus('Sorry — this email is not permitted to submit.', true);
+          if (reason === 'duplicate')     return setStatus('You have already submitted for this survey.', true);
+          if (reason === 'invalid_email') return setStatus('Please enter a valid email address.', true);
+          return setStatus(`Submission failed. ${json.message || ('HTTP '+res.status)}`, true);
+        }
+
+        setStatus('Thanks! Your ranking was recorded.', false);
+      } catch (err) {
+        console.error(err);
+        setStatus('Network error — please try again.', true);
+      } finally {
+        // ⏳ restore cursor no matter what
+        document.body.style.cursor = 'default';
+        if (!document.getElementById('submit').disabled) {
+          document.getElementById('submit').disabled = false;
+        }
+      }
+    });
+
+    function setStatus(msg, isErr) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = isErr ? 'err' : 'ok';
+    }
+
+    render();
+    </script>
+</body>
+</html>
