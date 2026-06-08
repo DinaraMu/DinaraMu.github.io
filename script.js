@@ -50,7 +50,13 @@ https://templatemo.com/tm-597-neural-glass
         }
 
         function getSectionTitleAnchor(target) {
-            return target.querySelector('.section-title, .resume-section-title, .skills-section-title, .contact-info h3') || target;
+            // Contact has no large section title, so anchor to the top of the contact card.
+            // This prevents the Contact tab from scrolling too far down into the section.
+            if (target.id === 'contact') {
+                return target.querySelector('.contact-info') || target;
+            }
+
+            return target.querySelector('.section-title, .resume-section-title, .skills-section-title') || target;
         }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
