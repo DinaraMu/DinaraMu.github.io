@@ -24,7 +24,7 @@ This version includes the latest requested cleanup:
 The top navigation tabs are in:
 
 ```txt
-index_portfolio_showcase.html
+index.html
 ```
 
 Search for:
@@ -49,14 +49,14 @@ Future About and Skills tabs are already left as comments in the desktop and mob
 <a href="#skills">Skills</a>
 ```
 
-The active-highlight behavior still comes from `templatemo-neural-scripts-showcase.js`, which checks visible `section[id]` blocks while scrolling. The scroll offset is set to `window.pageYOffset + 110` so fixed-header anchor jumps highlight the correct tab immediately.
+The active-highlight behavior still comes from `script.js`, which checks visible `section[id]` blocks while scrolling. The scroll offset is set to `window.pageYOffset + 110` so fixed-header anchor jumps highlight the correct tab immediately.
 
 ## Resume section
 
 The Resume section is in:
 
 ```txt
-index_portfolio_showcase.html
+index.html
 ```
 
 Search for:
@@ -99,7 +99,7 @@ The layout uses a glass card style and timeline dots, inspired by the old portfo
 The Skills section is in:
 
 ```txt
-index_portfolio_showcase.html
+index.html
 ```
 
 Search for:
@@ -126,7 +126,7 @@ data-filter="design"
 The skill bubble list is controlled in:
 
 ```txt
-templatemo-neural-scripts-showcase.js
+script.js
 ```
 
 Search for:
@@ -175,7 +175,7 @@ The Contact tab points to:
 <section class="contact" id="contact">
 ```
 
-That section is near the bottom of `index_portfolio_showcase.html`. Search for:
+That section is near the bottom of `index.html`. Search for:
 
 ```html
 CONTACT SECTION
@@ -194,7 +194,7 @@ Contact Section polish
 Open:
 
 ```txt
-templatemo-neural-scripts-showcase.js
+script.js
 ```
 
 Search for:
@@ -222,7 +222,7 @@ The removed demo projects are no longer in `portfolioProjects`, so they will not
 The visible filter buttons are in:
 
 ```txt
-index_portfolio_showcase.html
+index.html
 ```
 
 Search for:
@@ -300,7 +300,7 @@ The old `project-brand-logo-wrap` box above the modal title was removed from the
 
 ## ETERNIA project notes
 
-The ETERNIA project has been added inside `portfolioProjects` in `templatemo-neural-scripts-showcase.js`.
+The ETERNIA project has been added inside `portfolioProjects` in `script.js`.
 
 Search for:
 
@@ -374,7 +374,7 @@ Use `type: 'video'` for local MP4 files. Use `type: 'youtube'` only if you want 
 
 ## LilyPad project notes
 
-The LilyPad project has been added inside `portfolioProjects` in `templatemo-neural-scripts-showcase.js`.
+The LilyPad project has been added inside `portfolioProjects` in `script.js`.
 
 Search for:
 
@@ -389,7 +389,7 @@ categories: ['uxui', 'web'],
 categoryLabel: 'UX/UI / Web',
 ```
 
-The visible sorter button for UX/UI was added in `index_portfolio_showcase.html`:
+The visible sorter button for UX/UI was added in `index.html`:
 
 ```html
 <button class="project-filter-button" type="button" data-filter="uxui">UX/UI</button>
@@ -422,7 +422,7 @@ secondaryLink: { label: 'View Figma', url: 'https://www.figma.com/design/9AnNzOG
 
 ## Dino Luzzi project notes
 
-The Dino Luzzi Website Redesign project has been added inside `portfolioProjects` in `templatemo-neural-scripts-showcase.js`.
+The Dino Luzzi Website Redesign project has been added inside `portfolioProjects` in `script.js`.
 
 Search for:
 
@@ -471,7 +471,7 @@ The Skills section now uses a clustered bubble layout inspired by the reference 
 To edit the skills, open:
 
 ```txt
-templatemo-neural-scripts-showcase.js
+script.js
 ```
 
 Search for:
@@ -510,7 +510,7 @@ The preset percentage coordinates are inside `allPresetPositions` and `singleCat
 
 ## Skills section latest polish
 
-The Skills section header now only shows one title: `SKILLS`. The repeated eyebrow/subtitle and the descriptive paragraph were removed from `index_portfolio_showcase.html`.
+The Skills section header now only shows one title: `SKILLS`. The repeated eyebrow/subtitle and the descriptive paragraph were removed from `index.html`.
 
 The bubbles are rendered from:
 
@@ -518,7 +518,7 @@ The bubbles are rendered from:
 const skillCloudItems = [
 ```
 
-in `templatemo-neural-scripts-showcase.js`. The visible filters are still `All`, `Production`, `Tech`, and `Design`.
+in `script.js`. The visible filters are still `All`, `Production`, `Tech`, and `Design`.
 
 Bubble sizes are still based on each skill's order inside its category: earlier items are larger. The layout now runs through `layoutSkillBubbles()`, which places the largest bubbles close to the center and then places smaller bubbles outward while checking for overlap.
 
@@ -539,7 +539,7 @@ The Skills section bubble cloud was tightened so the whole box is smaller and bu
 Edit the sizing logic in:
 
 ```txt
-templatemo-neural-scripts-showcase.js
+script.js
 ```
 
 Search for:
@@ -573,7 +573,7 @@ Search for:
 
 ## Latest Skills bubble fixes
 
-The Skills section now uses a responsive no-overlap bubble layout in `templatemo-neural-scripts-showcase.js`. Search for:
+The Skills section now uses a responsive no-overlap bubble layout in `script.js`. Search for:
 
 ```js
 function layoutSkillBubbles()
@@ -612,7 +612,7 @@ section[id], .skills-section, .contact {
 }
 ```
 
-The active nav highlight offset in `templatemo-neural-scripts-showcase.js` now uses:
+The active nav highlight offset in `script.js` now uses:
 
 ```js
 const scrollPos = window.pageYOffset + 110;
@@ -633,7 +633,7 @@ Main edits:
 }
 ```
 
-Bubble size scaling is controlled in `templatemo-neural-scripts-showcase.js`:
+Bubble size scaling is controlled in `script.js`:
 
 ```js
 function getSkillSizeScale() { ... }
@@ -646,7 +646,7 @@ Increase those scale values a little to make all bubbles larger, or decrease the
 
 The Projects, Resume, and Skills section headers are now simple centered titles instead of glass boxes.
 
-Current visible section titles in `index_portfolio_showcase.html`:
+Current visible section titles in `index.html`:
 
 ```html
 <h2 class="section-title">PROJECTS</h2>
@@ -692,7 +692,7 @@ images/icons/css-icon.png
 To assign an icon to a skill, open:
 
 ```txt
-templatemo-neural-scripts-showcase.js
+script.js
 ```
 
 Search for:
@@ -723,7 +723,7 @@ images/icons/
 Most skills now use `iconPath` inside `skillCloudItems` in:
 
 ```txt
-templatemo-neural-scripts-showcase.js
+script.js
 ```
 
 Example:
@@ -746,7 +746,7 @@ For future icons, copy the icon file into `images/icons/`, then add or update th
 
 The Resume section has been updated with the current education, experience, research, languages, and awards content.
 
-The download button is in `index_portfolio_showcase.html` inside the Resume section:
+The download button is in `index.html` inside the Resume section:
 
 ```html
 <a class="resume-download-button" href="files/Dinara_Mukhtarova_Resume.pdf" download>
@@ -791,7 +791,7 @@ content: '✦';
 
 ## To Boldly Escargot project notes
 
-The To Boldly Escargot project has been added inside `portfolioProjects` in `templatemo-neural-scripts-showcase.js`.
+The To Boldly Escargot project has been added inside `portfolioProjects` in `script.js`.
 
 Search for:
 

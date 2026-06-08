@@ -2327,8 +2327,8 @@ body.modal-open {
    Resume Section + New Header Navigation
    =========================================
    CODE MAP:
-   - Header tab HTML lives in index_portfolio_showcase.html inside the MAIN HEADER comment.
-   - Resume content lives in index_portfolio_showcase.html inside the RESUME SECTION comment.
+   - Header tab HTML lives in index.html inside the MAIN HEADER comment.
+   - Resume content lives in index.html inside the RESUME SECTION comment.
    - This CSS only controls the visual styling.
    ========================================= */
 
@@ -2597,8 +2597,8 @@ section[id] {
 
 /* =========================================
    Skills Section: Animated Clustered Bubble Cloud
-   - Header and filter buttons are in index_portfolio_showcase.html.
-   - Skill data, size order, and cluster positions are in templatemo-neural-scripts-showcase.js.
+   - Header and filter buttons are in index.html.
+   - Skill data, size order, and cluster positions are in script.js.
    - The shell is slightly wider so the bubble cloud has more room on desktop.
    - Bubble movement uses CSS variables updated by JavaScript:
      --push-x, --push-y, --bubble-size, --cluster-x, --cluster-y, and --float-delay.
