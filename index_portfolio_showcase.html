@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinara Mukhtarova Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+<!--
+
+TemplateMo 597 Neural Glass
+
+https://templatemo.com/tm-597-neural-glass
+
+-->
+    <style>
+       
+    </style>
+</head>
+<body>
+    <!-- Epic Neural Background -->
+    <div class="neural-background"></div>
+    
+    <!-- Floating Geometric Shapes -->
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Neural Network Lines -->
+    <div class="neural-lines">
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+    </div>
+
+    <!-- ==============================
+         MAIN HEADER / SITE NAVIGATION
+         Edit this section when you want to add new top tabs.
+         Current live tabs: Portfolio + Resume + Skills + Contact.
+         Future tabs can be added later as anchors, for example:
+         <li><a href="#about">About</a></li>
+         <li><a href="#skills">Skills</a></li>
+         ============================== -->
+    <header class="glass">
+        <nav>
+            <a href="#showcase" class="logo" aria-label="Go to portfolio section">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e0a3ff"/>
+                            <stop offset="50%" style="stop-color:#ff69b4"/>
+                            <stop offset="100%" style="stop-color:#9370db"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="30" r="8" fill="url(#logoGradient)" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="30" cy="60" r="6" fill="url(#logoGradient)" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="70" cy="65" r="7" fill="url(#logoGradient)" opacity="0.7">
+                        <animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s" repeatCount="indefinite"/>
+                    </circle>
+                    <line x1="50" y1="30" x2="30" y2="60" stroke="url(#logoGradient)" stroke-width="2" opacity="0.6"/>
+                    <line x1="50" y1="30" x2="70" y2="65" stroke="url(#logoGradient)" stroke-width="2" opacity="0.6"/>
+                    <line x1="30" y1="60" x2="70" y2="65" stroke="url(#logoGradient)" stroke-width="2" opacity="0.6"/>
+                </svg>
+                Dinara Mukhtarova
+            </a>
+
+            <!-- Desktop navigation tabs -->
+            <ul class="nav-links">
+                <li><a href="#showcase">Portfolio</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <!-- Future tab:
+                <li><a href="#about">About</a></li>
+                -->
+            </ul>
+
+            <div class="mobile-menu-toggle" aria-label="Open mobile navigation" role="button" tabindex="0">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+
+        <!-- Mobile navigation tabs. Keep this in sync with the desktop nav above. -->
+        <div class="mobile-nav">
+            <a href="#showcase">Portfolio</a>
+            <a href="#resume">Resume</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+            <!-- Future mobile tab:
+            <a href="#about">About</a>
+            -->
+        </div>
+    </header>
+
+
+
+    <!-- Section 3: Project Showcase -->
+    <section class="showcase portfolio-showcase" id="showcase">
+        <div class="showcase-shell">
+            <h2 class="section-title">PROJECTS</h2>
+            <div class="project-filter-bar" id="projectFilterBar" aria-label="Filter projects">
+                <button class="project-filter-button is-active" type="button" data-filter="all">All</button>
+                <button class="project-filter-button" type="button" data-filter="art">Art</button>
+                <button class="project-filter-button" type="button" data-filter="game">Game</button>
+                <button class="project-filter-button" type="button" data-filter="uxui">UX/UI</button>
+                <button class="project-filter-button" type="button" data-filter="web">Web</button>
+            </div>
+            <div class="project-showcase-grid" id="projectShowcaseGrid"></div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal" aria-hidden="true">
+        <div class="project-modal-backdrop" data-close-modal></div>
+        <div class="project-modal-dialog glass-strong" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <button class="project-modal-close" id="projectModalClose" type="button" aria-label="Close project details">&times;</button>
+
+            <div class="project-modal-grid">
+                <div class="project-modal-panel project-brand-panel glass">
+                    <div class="project-brand-meta">
+                        <p class="project-modal-eyebrow" id="projectModalEyebrow">Project</p>
+                        <h3 id="projectModalTitle">Project Title</h3>
+                    </div>
+                </div>
+
+                <div class="project-modal-panel project-summary-panel glass">
+                    <div class="project-summary-top">
+                        <p class="project-modal-kicker">Quick info</p>
+                        <p class="project-summary-copy" id="projectSummaryCopy"></p>
+                    </div>
+
+                    <div class="project-stat-grid" id="projectStatGrid"></div>
+
+                    <div class="project-chip-row" id="projectChipRow"></div>
+
+                    <div class="project-action-row" id="projectActionRow"></div>
+                </div>
+
+                <div class="project-modal-panel project-description-panel glass">
+                    <div class="project-panel-heading">
+                        <span>Project overview</span>
+                    </div>
+                    <p class="project-description-text" id="projectDescriptionText"></p>
+                </div>
+
+                <button class="project-modal-panel project-preview-panel glass" id="projectPreviewButton" type="button" aria-label="Open project gallery">
+                    <div class="project-panel-heading">
+                        <span>Gallery preview</span>
+                        <span class="project-open-gallery-text">Open gallery ↗</span>
+                    </div>
+                    <div class="project-preview-media" id="projectPreviewMedia"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Lightbox -->
+    <div class="media-lightbox" id="mediaLightbox" aria-hidden="true">
+        <div class="media-lightbox-backdrop" data-close-lightbox></div>
+        <div class="media-lightbox-dialog glass-strong" role="dialog" aria-modal="true" aria-labelledby="mediaLightboxTitle">
+            <button class="media-lightbox-close" id="mediaLightboxClose" type="button" aria-label="Close gallery">&times;</button>
+
+            <div class="media-lightbox-header">
+                <div>
+                    <p class="media-lightbox-kicker">Project gallery</p>
+                    <h3 id="mediaLightboxTitle">Media Viewer</h3>
+                </div>
+                <div class="media-lightbox-count" id="mediaLightboxCount">1 / 1</div>
+            </div>
+
+            <div class="media-lightbox-stage-wrap">
+                <button class="media-nav-button media-nav-prev" id="mediaPrevButton" type="button" aria-label="Previous media">‹</button>
+                <div class="media-lightbox-stage" id="mediaLightboxStage"></div>
+                <button class="media-nav-button media-nav-next" id="mediaNextButton" type="button" aria-label="Next media">›</button>
+            </div>
+
+            <div class="media-lightbox-caption" id="mediaLightboxCaption"></div>
+            <div class="media-thumbnail-row" id="mediaThumbnailRow"></div>
+        </div>
+    </div>
+
+
+    <!-- ==============================
+         RESUME SECTION
+         This section is based on the old portfolio resume layout,
+         but restyled to match the new glass/neon website.
+         To edit resume content, change the text inside each .resume-item below.
+         The Download Resume button points to files/Dinara_Mukhtarova_Resume.pdf.
+         ============================== -->
+    <section class="resume-section" id="resume">
+        <div class="resume-shell">
+            <div class="resume-header">
+                <h2 class="section-title resume-section-title">RESUME</h2>
+                <div class="resume-actions">
+                    <a class="resume-download-button" href="files/Dinara_Mukhtarova_Resume.pdf" download>
+                        Download Resume
+                    </a>
+                </div>
+            </div>
+
+            <div class="resume-layout">
+                <!-- LEFT COLUMN: Summary + Education + Research + Languages/Awards -->
+                <div class="resume-column glass">
+                    <h3 class="resume-title">Summary</h3>
+                    <div class="resume-item resume-summary-item">
+                        <h4>Dinara Mukhtarova</h4>
+                        <p><em>Project manager, game designer, and digital media developer focused on leading cross-disciplinary teams, building production pipelines, and creating polished interactive experiences across games, UX/UI, web, and visual design.</em></p>
+                        <ul class="resume-contact-list">
+                            <li>Orlando, FL</li>
+                            <li><a href="mailto:dmukhtarova.design@gmail.com">dmukhtarova.design@gmail.com</a></li>
+                        </ul>
+                    </div>
+
+                    <h3 class="resume-title">Education</h3>
+                    <div class="resume-item">
+                        <h4>M.S. Interactive Entertainment - Project Management</h4>
+                        <h5>2025 - 2026</h5>
+                        <p><em>University of Central Florida, Florida Interactive Entertainment Academy</em></p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>B.A. Digital Arts &amp; Sciences - Computer Science Minor</h4>
+                        <h5>2021 - 2025</h5>
+                        <p><em>University of Florida</em></p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Summer Study Abroad - Game Design</h4>
+                        <h5>2023</h5>
+                        <p><em>Kyoto University</em></p>
+                    </div>
+
+                    <h3 class="resume-title">Research</h3>
+                    <div class="resume-item">
+                        <h4>Live Service Games in the Mobile Market</h4>
+                        <h5>2026</h5>
+                        <p><em>Independent Research</em></p>
+                        <p>Researched live service systems, player criticism, long-term success trends, and recurring mechanics in the mobile games industry.</p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Monetization in Sports Video Games</h4>
+                        <h5>2025</h5>
+                        <p><em>Independent Research</em></p>
+                        <p>Researched monetization systems in sports games, including Ultimate Team, MyTeam, virtual currencies, and loot-style reward structures.</p>
+                    </div>
+
+                    <h3 class="resume-title">Languages &amp; Awards</h3>
+                    <div class="resume-item">
+                        <h4>Languages</h4>
+                        <p>English / Russian - Fluent</p>
+                        <p>French / Azeri - Basic</p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Awards</h4>
+                        <ul>
+                            <li>1st Place - FIEA Game Jam</li>
+                            <li>DW Convergence Award</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Professional Experience + Projects -->
+                <div class="resume-column glass">
+                    <h3 class="resume-title">Professional Experience</h3>
+                    <div class="resume-item">
+                        <h4>Project Lead</h4>
+                        <h5>2025 - Present</h5>
+                        <p><em>Wanderlust Studios - 24-member cross-disciplinary team</em></p>
+                        <ul>
+                            <li>Enforced a clear creative and production vision to improve team efficiency and decision making.</li>
+                            <li>Built and maintained a production schedule that kept the team on track and improved time usage.</li>
+                            <li>Recruited, interviewed, and onboarded contractors, then supported and managed them as part of the team.</li>
+                            <li>Connected Excel with Jira to create a front-end task system and streamline task tracking.</li>
+                            <li>Worked on game design and content implementation in Unreal Engine.</li>
+                            <li>Redesigned a level from scratch after a major scope change, defining narrative beats, player progression, and story timeline.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-item">
+                        <h4>Backstage Operations</h4>
+                        <h5>2023 - 2025</h5>
+                        <p><em>Phillips Center for the Performing Arts</em></p>
+                        <ul>
+                            <li>Used Shiftboard for team scheduling and time tracking.</li>
+                            <li>Managed merchandise sales and event-support responsibilities.</li>
+                            <li>Coordinated people, space, and resources while keeping operations functional during high-stress moments.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-item">
+                        <h4>Creative Lead / Game Designer</h4>
+                        <h5>2024 - 2025</h5>
+                        <p><em>Wisp Game Design Project</em></p>
+                        <ul>
+                            <li>Created the narrative, world concept, and creative vision for the project.</li>
+                            <li>Translated a story-driven concept into level design through pacing, layout, and environmental storytelling.</li>
+                            <li>Led the team around a clear creative vision and aligned design decisions throughout development.</li>
+                            <li>Designed and implemented core gameplay and level design systems.</li>
+                            <li>Created and maintained design documentation and feature specs.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-item">
+                        <h4>Web &amp; Graphic Designer</h4>
+                        <h5>2019 - 2021</h5>
+                        <p><em>AT&amp;S</em></p>
+                        <ul>
+                            <li>Redesigned the company website using Wix, JavaScript, HTML, and CSS.</li>
+                            <li>Created logos and graphics for clients using Illustrator, Photoshop, and Procreate.</li>
+                            <li>Maintained the company&apos;s core brand values and visual design standards.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- ==============================
+         SKILLS SECTION
+         This section is rendered from the skillCloudItems array in templatemo-neural-scripts-showcase.js.
+         To edit the skill list, search for: const skillCloudItems = [
+         To edit the visible filter buttons, update the data-filter values below.
+         The bubbles use simple movement physics in JavaScript and styling in style.css.
+         ============================== -->
+    <section class="skills-section" id="skills">
+        <div class="skills-shell">
+            <div class="skills-header">
+                <h2 class="section-title skills-section-title">SKILLS</h2>
+            </div>
+
+            <div class="skill-filter-bar" id="skillFilterBar" aria-label="Filter skills">
+                <button class="project-filter-button skill-filter-button is-active" type="button" data-filter="all">All</button>
+                <button class="project-filter-button skill-filter-button" type="button" data-filter="production">Production</button>
+                <button class="project-filter-button skill-filter-button" type="button" data-filter="tech">Tech</button>
+                <button class="project-filter-button skill-filter-button" type="button" data-filter="design">Design</button>
+            </div>
+
+            <div class="skill-bubble-cloud glass" id="skillBubbleCloud" aria-live="polite"></div>
+        </div>
+    </section>
+
+
+    <!-- ==============================
+         CONTACT SECTION
+         This section is connected to the Contact tab in the header.
+         Edit the email/social links here when you are ready to make them final.
+         The form is front-end only right now; it does not send messages unless you connect it to a service later.
+         ============================== -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info glass">
+                <p class="contact-eyebrow">Contact</p>
+                <h3>LET'S CONNECT</h3>
+                <p>I am always open to talking about games, production, UX/UI, web projects, and creative opportunities.</p>
+                <p>The fastest way to reach me is by email. You can also replace the placeholder social buttons below with your portfolio, LinkedIn, GitHub, or itch.io links.</p>
+                
+                <div class="social-links" aria-label="Social and contact links">
+                    <a href="mailto:dmukhtarova.design@gmail.com" class="glass" aria-label="Email Dinara">✉️</a>
+                    <a href="https://github.com/yourproject" target="_blank" rel="noopener" class="glass" aria-label="GitHub profile">💻</a>
+                    <a href="#" class="glass" aria-label="LinkedIn profile placeholder">🔗</a>
+                    <a href="#showcase" class="glass" aria-label="View portfolio projects">🎮</a>
+                </div>
+            </div>
+            
+            <form class="contact-form glass">
+                <div class="form-group">
+                    <input type="text" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">SEND MESSAGE</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#showcase">Portfolio</a>
+                <a href="#resume">Resume</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+                <!-- Future footer link:
+                <a href="#about">About</a>
+                -->
+                <a href="mailto:dmukhtarova.design@gmail.com">Email</a>
+                <a href="https://github.com/yourproject" target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2025 Dinara Mukhtarova. All rights reserved.</p>
+            </div>
+            <div class="footer-design">
+                Portfolio built from a customized TemplateMo base and restyled for project showcase + resume sections.
+            </div>
+        </div>
+    </footer>
+<script src="templatemo-neural-scripts-showcase.js"></script>
+</body>
+</html>
