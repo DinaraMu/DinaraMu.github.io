@@ -842,3 +842,28 @@ Latest C# / icon refresh:
 - ETERNIA now lists Unity and C# in its madeWith chips.
 - Skill icon files were refreshed for Wix, Unity, 3ds Max, Canva, Task Prioritization, and Scheduling.
 - The skill formerly labeled 3D Max is now labeled 3ds Max.
+
+
+## Mobile responsiveness update
+
+This version adds a phone polish layer at the bottom of `style.css`. Search for:
+
+```css
+Phone + Small Screen Polish
+```
+
+Key mobile behavior:
+- Header compacts into the hamburger menu.
+- Project and skill filters become horizontal scrollable pill bars on phone screens.
+- Project cards stay tappable without relying on hover overlays.
+- Project popups and gallery lightboxes become full-screen mobile sheets.
+- Skills bubbles switch to a wrapped bubble cloud on touch screens so they do not overlap.
+- Contact, resume, and footer sections stack cleanly on narrow screens.
+
+The main files are now simplified to:
+
+```txt
+index.html
+style.css
+script.js
+```
