@@ -34,9 +34,27 @@ https://templatemo.com/tm-597-neural-glass
         });
 
         // Enhanced smooth scrolling
+        // Uses a custom offset instead of plain scrollIntoView so fixed-header tabs
+        // land directly on the section title and highlight immediately.
+        function getAnchorOffset() {
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.getBoundingClientRect().height : 0;
+            const isMobile = window.innerWidth <= 640;
+            return Math.round(headerHeight + (isMobile ? 14 : 18));
+        }
+
+        function setActiveNavByTarget(targetId) {
+            document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === targetId);
+            });
+        }
+
+        function getSectionTitleAnchor(target) {
+            return target.querySelector('.section-title, .resume-section-title, .skills-section-title, .contact-info h3') || target;
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
                 const targetId = this.getAttribute('href');
                 
                 // Skip if href is just "#"
@@ -44,10 +62,20 @@ https://templatemo.com/tm-597-neural-glass
                 
                 const target = document.querySelector(targetId);
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    e.preventDefault();
+                    const anchorTarget = getSectionTitleAnchor(target);
+                    const targetY = anchorTarget.getBoundingClientRect().top + window.pageYOffset - getAnchorOffset();
+
+                    window.scrollTo({
+                        top: Math.max(targetY, 0),
+                        behavior: 'smooth'
                     });
+
+                    setActiveNavByTarget(targetId);
+                    history.replaceState(null, '', targetId);
+
+                    window.setTimeout(updateActiveMenuItem, 260);
+                    window.setTimeout(updateActiveMenuItem, 620);
                 }
             });
         });
@@ -70,8 +98,9 @@ https://templatemo.com/tm-597-neural-glass
             const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
             
             let currentSection = '';
-            // Match this number to the fixed header height + tighter section scroll-margin so tabs highlight immediately after anchor jumps.
-            const scrollPos = window.pageYOffset + 110;
+            // Use the actual fixed-header height plus a generous lead so the clicked tab
+            // highlights as soon as its section title lands under the nav.
+            const scrollPos = window.pageYOffset + getAnchorOffset() + 72;
             
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -91,6 +120,7 @@ https://templatemo.com/tm-597-neural-glass
         }
 
         window.addEventListener('scroll', updateActiveMenuItem);
+        window.addEventListener('resize', updateActiveMenuItem);
         window.addEventListener('load', updateActiveMenuItem);
 
         // Parallax effect for geometric shapes

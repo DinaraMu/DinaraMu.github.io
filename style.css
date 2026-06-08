@@ -6,11 +6,22 @@
      padding: 0;
      box-sizing: border-box;
 }
+
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+}
+
  body {
      font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
      background: #000;
      color: #e0a3ff;
      overflow-x: hidden;
+     width: 100%;
+     max-width: 100%;
      min-height: 100vh;
      font-weight: 400;
      line-height: 1.6;
@@ -2334,7 +2345,7 @@ body.modal-open {
 
 /* Keeps anchor jumps from hiding section titles under the fixed header. */
 section[id] {
-    scroll-margin-top: 76px;
+    scroll-margin-top: 42px;
 }
 
 /* Slightly tune the new name-based logo for portfolio navigation. */
@@ -2606,7 +2617,7 @@ section[id] {
 .skills-section {
     position: relative;
     padding: 90px 0 105px;
-    scroll-margin-top: 76px;
+    scroll-margin-top: 42px;
     overflow: hidden;
 }
 
@@ -2890,7 +2901,7 @@ section[id] {
    - The form is visual only unless connected to a backend/form service later.
    ========================================= */
 .contact {
-    scroll-margin-top: 76px;
+    scroll-margin-top: 42px;
 }
 
 .contact .contact-info,
@@ -3009,6 +3020,20 @@ textarea {
         font-size: 15px;
     }
 
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+        touch-action: pan-y;
+    }
+
+    .geometric-shapes,
+    .neural-lines,
+    .neural-background {
+        max-width: 100vw;
+        overflow: hidden;
+    }
+
+
     header {
         top: 8px;
         width: calc(100% - 16px);
@@ -3062,7 +3087,7 @@ textarea {
     }
 
     section[id] {
-        scroll-margin-top: 78px;
+        scroll-margin-top: 48px;
     }
 
     .showcase-shell,

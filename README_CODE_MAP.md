@@ -867,3 +867,10 @@ index.html
 style.css
 script.js
 ```
+
+
+## Latest mobile/nav fix
+
+- `index.html` viewport now locks to the device width to stop mobile zoom-out from exposing/breaking the layout.
+- `style.css` includes extra `max-width: 100%` and `overflow-x` safeguards for mobile sections and media.
+- `script.js` now uses custom anchor scrolling instead of plain `scrollIntoView()`, so Portfolio / Resume / Skills / Contact land directly on their section title and highlight immediately.
