@@ -56,7 +56,7 @@ https://templatemo.com/tm-597-neural-glass
                 return target.querySelector('.contact-info') || target;
             }
 
-            return target.querySelector('.section-title, .resume-section-title, .skills-section-title') || target;
+            return target.querySelector('.section-title, .resume-section-title, .skills-section-title, .about-section-title') || target;
         }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1390,3 +1390,101 @@ window.addEventListener('resize', () => {
 renderSkillBubbles();
 
 renderProjectCards();
+
+
+/* =========================================
+   DOCUMENTATION GALLERY
+   Each image is a separate clickable item.
+   Ravenous Sky documents remain first in the sequence.
+   ========================================= */
+const documentationItems = [
+    { title: 'Ravenous Sky — Roadmap', src: 'images/documentation/ravenous-sky-roadmap.jpg', caption: 'Ravenous Sky production roadmap covering the vertical slice, production, and alpha milestones.' },
+    { title: 'Ravenous Sky — Backlog', src: 'images/documentation/ravenous-sky-backlog.jpg', caption: 'Ravenous Sky Jira backlog organized by sprint, discipline, status, due date, and story points.' },
+    { title: 'Ravenous Sky — Capacity', src: 'images/documentation/ravenous-sky-capacity.jpg', caption: 'Team capacity planning sheet comparing available hours across art, design, programming, and the full team.' },
+    { title: 'Ravenous Sky — Live Dashboard', src: 'images/documentation/ravenous-sky-live-dashboard.jpg', caption: 'Live dashboard tracking sprint and release burnup, team velocity, and discipline-level work status.' },
+    { title: 'Sports Game — Roadmap', src: 'images/documentation/sports-roadmap.jpg', caption: 'Feature and production roadmap organized across parallel development lanes.' },
+    { title: 'Sports Game — Analysis', src: 'images/documentation/sports-analysis.jpg', caption: 'Comparative game analysis with downloads, revenue, ARPU, regional performance, and trend charts.' },
+    { title: 'Fighting Game — Roadmap', src: 'images/documentation/fighters-roadmap.jpg', caption: 'Live-content calendar mapping PvE, PvP, login bonuses, battle passes, and shop content.' },
+    { title: 'Fighting Game — Backlog', src: 'images/documentation/fighters-backlog.jpg', caption: 'Jira sprint board used to coordinate art, programming, approvals, testing, and content implementation.' },
+    { title: 'Fighting Game — Metadata', src: 'images/documentation/fighters-metadata-sheet.jpg', caption: 'Structured metadata sheet for character gear, currencies, minting rules, rarity, affinity, gender, and roles.' }
+];
+
+const documentationLightbox = document.getElementById('documentationLightbox');
+const documentationLightboxClose = document.getElementById('documentationLightboxClose');
+const documentationLightboxTitle = document.getElementById('documentationLightboxTitle');
+const documentationLightboxCount = document.getElementById('documentationLightboxCount');
+const documentationLightboxStage = document.getElementById('documentationLightboxStage');
+const documentationLightboxCaption = document.getElementById('documentationLightboxCaption');
+const documentationThumbnailRow = document.getElementById('documentationThumbnailRow');
+const documentationPrevButton = document.getElementById('documentationPrevButton');
+const documentationNextButton = document.getElementById('documentationNextButton');
+let activeDocumentationItem = 0;
+
+function renderDocumentationLightbox() {
+    const item = documentationItems[activeDocumentationItem];
+    if (!item) return;
+
+    documentationLightboxTitle.textContent = item.title;
+    documentationLightboxCount.textContent = `${activeDocumentationItem + 1} / ${documentationItems.length}`;
+    documentationLightboxCaption.textContent = item.caption || '';
+    documentationLightboxStage.innerHTML = '';
+
+    const image = document.createElement('img');
+    image.src = item.src;
+    image.alt = item.caption || item.title;
+    image.loading = 'eager';
+    documentationLightboxStage.appendChild(image);
+
+    documentationThumbnailRow.innerHTML = '';
+    documentationItems.forEach((thumbItem, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `documentation-thumbnail${index === activeDocumentationItem ? ' is-active' : ''}`;
+        button.setAttribute('aria-label', `Open ${thumbItem.title}`);
+        const thumb = document.createElement('img');
+        thumb.src = thumbItem.src;
+        thumb.alt = '';
+        button.appendChild(thumb);
+        button.addEventListener('click', () => {
+            activeDocumentationItem = index;
+            renderDocumentationLightbox();
+        });
+        documentationThumbnailRow.appendChild(button);
+    });
+}
+
+function openDocumentationLightbox(itemIndex = 0) {
+    activeDocumentationItem = itemIndex;
+    renderDocumentationLightbox();
+    documentationLightbox.classList.add('is-open');
+    documentationLightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+}
+
+function closeDocumentationLightbox() {
+    if (!documentationLightbox) return;
+    documentationLightbox.classList.remove('is-open');
+    documentationLightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+}
+
+function stepDocumentation(direction) {
+    if (!documentationItems.length) return;
+    activeDocumentationItem = (activeDocumentationItem + direction + documentationItems.length) % documentationItems.length;
+    renderDocumentationLightbox();
+}
+
+document.querySelectorAll('[data-documentation-index]').forEach(card => {
+    card.addEventListener('click', () => openDocumentationLightbox(Number(card.dataset.documentationIndex)));
+});
+if (documentationLightboxClose) documentationLightboxClose.addEventListener('click', closeDocumentationLightbox);
+document.querySelectorAll('[data-close-documentation]').forEach(el => el.addEventListener('click', closeDocumentationLightbox));
+if (documentationPrevButton) documentationPrevButton.addEventListener('click', () => stepDocumentation(-1));
+if (documentationNextButton) documentationNextButton.addEventListener('click', () => stepDocumentation(1));
+
+document.addEventListener('keydown', event => {
+    if (!documentationLightbox?.classList.contains('is-open')) return;
+    if (event.key === 'Escape') closeDocumentationLightbox();
+    if (event.key === 'ArrowLeft') stepDocumentation(-1);
+    if (event.key === 'ArrowRight') stepDocumentation(1);
+});

@@ -874,3 +874,32 @@ script.js
 - `index.html` viewport now locks to the device width to stop mobile zoom-out from exposing/breaking the layout.
 - `style.css` includes extra `max-width: 100%` and `overflow-x` safeguards for mobile sections and media.
 - `script.js` now uses custom anchor scrolling instead of plain `scrollIntoView()`, so Portfolio / Resume / Skills / Contact land directly on their section title and highlight immediately.
+
+
+## About section
+
+The About section is in `index.html`. Search for `ABOUT SECTION`.
+
+- Portrait path: `images/about/dinara-mukhtarova.jpg`
+- Email button: `mailto:dmukhtarova.design@gmail.com`
+- LinkedIn button: `https://www.linkedin.com/in/dmukhtarova/`
+- Styling is at the bottom of `style.css` under `ABOUT SECTION`.
+- The About tab was added to desktop navigation, mobile navigation, and the footer.
+
+
+## Documentation section
+
+The page order is now **About → Projects → Documentation → Skills → Contact**. The Resume section remains in `index.html` but is hidden with the `hidden` attribute and `.resume-section-hidden`; it was not deleted.
+
+Search `index.html` for `documentation-section`. Documentation images are in `images/documentation/`. The gallery data and image order are controlled in `script.js` under `const documentationCollections = [`. Ravenous Sky is listed first and displayed as the featured documentation card.
+
+Clicking a documentation card opens a dedicated lightbox. Visitors can move through images using the arrow buttons, keyboard left/right arrows, or thumbnails.
+
+## Latest documentation/contact simplification
+
+- Documentation is now a flat grid of individual clickable images rather than grouped project collections.
+- The lightbox still allows previous/next navigation across all documentation images and includes thumbnails.
+- Ravenous Sky documentation remains first in the image order.
+- The Contact section now shows only direct Email and LinkedIn links beside the message form.
+- Edit documentation order and captions in `script.js` under `const documentationItems = [`.
+- Edit the visible documentation image cards in `index.html` inside `#documentationGrid`.
