@@ -45,6 +45,45 @@
   };
 
   let ownerObserver;
+  let mobileRevealInstalled = false;
+
+  const installMobileRevealFix = () => {
+    if (mobileRevealInstalled || !window.matchMedia("(max-width: 900px)").matches) {
+      return;
+    }
+
+    mobileRevealInstalled = true;
+    let revealFrame = 0;
+
+    const revealSectionsNearViewport = () => {
+      revealFrame = 0;
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      document.querySelectorAll("main.site > section.chapter:not(.hero)").forEach((section) => {
+        if (section.classList.contains("revealed")) {
+          return;
+        }
+
+        const bounds = section.getBoundingClientRect();
+        const sectionHasReachedViewport = bounds.top <= viewportHeight * 0.94;
+        const sectionIsNotAboveViewport = bounds.bottom >= 0;
+
+        if (sectionHasReachedViewport && sectionIsNotAboveViewport) {
+          section.classList.add("revealed");
+        }
+      });
+    };
+
+    const requestRevealCheck = () => {
+      if (!revealFrame) {
+        revealFrame = window.requestAnimationFrame(revealSectionsNearViewport);
+      }
+    };
+
+    window.addEventListener("scroll", requestRevealCheck, { passive: true });
+    window.addEventListener("resize", requestRevealCheck);
+    revealSectionsNearViewport();
+  };
 
   const syncRiskOwner = () => {
     const riskTool = document.querySelector("#ch-11 .risk-tool");
@@ -135,6 +174,9 @@
       }
 
       link.addEventListener("click", () => {
+        if (next) {
+          document.getElementById(next[0])?.classList.add("revealed");
+        }
         document.querySelector("main.site")?.classList.add("is-glitching");
         window.setTimeout(() => {
           document.querySelector("main.site")?.classList.remove("is-glitching");
@@ -144,6 +186,7 @@
       section.append(link);
     });
 
+    installMobileRevealFix();
     syncRiskOwner();
   };
 

@@ -226,6 +226,9 @@
   .chapter:not(.hero){min-height:auto;padding-top:66px;padding-bottom:50px}
   .chapter-head{margin-bottom:42px}
   .section-next{margin-top:42px}
+  .chapter:not(.hero)>*{
+    transition-duration:.38s;
+  }
   .hero .section-next{
     position:relative;
     left:auto;
