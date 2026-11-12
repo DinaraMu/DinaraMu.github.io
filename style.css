@@ -3988,3 +3988,9 @@ textarea {
     .contact-container { grid-template-columns: 1fr; gap: 22px; }
     .contact-links-panel { padding: 30px 22px; }
 }
+
+/* Automatic gallery rotation control */
+.carousel-auto-toggle { flex-shrink: 0; border: 1px solid rgba(230,180,255,.3); border-radius: 999px; padding: .55rem .8rem; background: rgba(25,17,44,.85); color: #edc5ff; font: inherit; font-size: .78rem; cursor: pointer; }
+.carousel-auto-toggle:focus-visible { outline: 2px solid #edc5ff; outline-offset: 3px; }
+.carousel-thumbs { min-width: 0; }
+@media (max-width: 600px) { .carousel-bottom { flex-wrap: wrap; } .carousel-auto-toggle { margin-left: auto; } }
